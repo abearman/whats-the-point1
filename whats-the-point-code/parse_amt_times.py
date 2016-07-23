@@ -12,7 +12,7 @@ print "Done loading results json"
 
 print "There are " + str(len(output_data)) + " HITs to parse."
 
-f = open('/imagenetdb3/abearman/caffe/models/code/PASCAL_AMT_TIMES.txt', 'w')
+f = open('/imagenetdb3/abearman/whats-the-point-code/PASCAL_AMT_TIMES.txt', 'w')
 
 counter = 1
 for hit in output_data:

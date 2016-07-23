@@ -12,7 +12,7 @@ GT_DIR = "/imagenetdb3/olga/data/PASCAL_SBD/dataset/cls_plus_VOC/"
 IDS_FILE = "/imagenetdb3/olga/data/segm_lmdb/pascal_2012tv_SBDtv.txt"
 
 times_map = {}
-with open('/imagenetdb3/abearman/caffe/models/code/PASCAL_AMT_TIMES.txt') as times_file:
+with open('/imagenetdb3/abearman/whats-the-point-code/PASCAL_AMT_TIMES.txt') as times_file:
 	for line in times_file:
 		arr = line.split()
 		img_id = arr[0]		

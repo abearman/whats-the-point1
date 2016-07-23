@@ -6,5 +6,8 @@ This library is a custom build of Caffe for semantic image segmentation with poi
 
 ## Code Structure
 
-All Caffe src files are in the [caffe](caffe/) directory. All
+All Caffe src files are in the [caffe](caffe/) directory. All code and scripts to run and evaluate the various models are in the [whats-the-point-2016](whats-the-point-2016/) directory.
 
+``caffe/src/caffe/layers/softmax_loss_expectation_layer.cpp``
+
+* 

@@ -1,0 +1,77 @@
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/longjon/caffe/!svn/ver/3160/branches/future/include/caffe/util
+END
+device_alternate.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/longjon/caffe/!svn/ver/3033/branches/future/include/caffe/util/device_alternate.hpp
+END
+math_functions.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/longjon/caffe/!svn/ver/3030/branches/future/include/caffe/util/math_functions.hpp
+END
+insert_splits.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/longjon/caffe/!svn/ver/2713/branches/future/include/caffe/util/insert_splits.hpp
+END
+mkl_alternate.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/longjon/caffe/!svn/ver/2713/branches/future/include/caffe/util/mkl_alternate.hpp
+END
+db.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/longjon/caffe/!svn/ver/2918/branches/future/include/caffe/util/db.hpp
+END
+im2col.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/longjon/caffe/!svn/ver/2713/branches/future/include/caffe/util/im2col.hpp
+END
+rng.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/longjon/caffe/!svn/ver/2713/branches/future/include/caffe/util/rng.hpp
+END
+cudnn.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/longjon/caffe/!svn/ver/2849/branches/future/include/caffe/util/cudnn.hpp
+END
+io.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/longjon/caffe/!svn/ver/3029/branches/future/include/caffe/util/io.hpp
+END
+coords.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/longjon/caffe/!svn/ver/3160/branches/future/include/caffe/util/coords.hpp
+END
+benchmark.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/longjon/caffe/!svn/ver/2849/branches/future/include/caffe/util/benchmark.hpp
+END
+upgrade_proto.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/longjon/caffe/!svn/ver/2943/branches/future/include/caffe/util/upgrade_proto.hpp
+END

@@ -1,0 +1,59 @@
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/longjon/caffe/!svn/ver/3162/branches/future/src/caffe
+END
+solver.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/longjon/caffe/!svn/ver/3160/branches/future/src/caffe/solver.cpp
+END
+data_transformer.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/longjon/caffe/!svn/ver/3030/branches/future/src/caffe/data_transformer.cpp
+END
+CMakeLists.txt
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/longjon/caffe/!svn/ver/3030/branches/future/src/caffe/CMakeLists.txt
+END
+blob.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/longjon/caffe/!svn/ver/3157/branches/future/src/caffe/blob.cpp
+END
+internal_thread.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/longjon/caffe/!svn/ver/2918/branches/future/src/caffe/internal_thread.cpp
+END
+layer_factory.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/longjon/caffe/!svn/ver/3030/branches/future/src/caffe/layer_factory.cpp
+END
+syncedmem.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/longjon/caffe/!svn/ver/2713/branches/future/src/caffe/syncedmem.cpp
+END
+net.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/longjon/caffe/!svn/ver/3160/branches/future/src/caffe/net.cpp
+END
+common.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/longjon/caffe/!svn/ver/3030/branches/future/src/caffe/common.cpp
+END

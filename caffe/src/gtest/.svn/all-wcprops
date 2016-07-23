@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/longjon/caffe/!svn/ver/3030/branches/future/src/gtest
+END
+gtest.h
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/longjon/caffe/!svn/ver/2713/branches/future/src/gtest/gtest.h
+END
+CMakeLists.txt
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/longjon/caffe/!svn/ver/3030/branches/future/src/gtest/CMakeLists.txt
+END
+gtest-all.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/longjon/caffe/!svn/ver/2713/branches/future/src/gtest/gtest-all.cpp
+END
+gtest_main.cc
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/longjon/caffe/!svn/ver/2713/branches/future/src/gtest/gtest_main.cc
+END

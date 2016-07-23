@@ -1,0 +1,59 @@
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/longjon/caffe/!svn/ver/3157/branches/future/cmake
+END
+ConfigGen.cmake
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/longjon/caffe/!svn/ver/3030/branches/future/cmake/ConfigGen.cmake
+END
+ProtoBuf.cmake
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/longjon/caffe/!svn/ver/3030/branches/future/cmake/ProtoBuf.cmake
+END
+Utils.cmake
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/longjon/caffe/!svn/ver/3030/branches/future/cmake/Utils.cmake
+END
+Dependencies.cmake
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/longjon/caffe/!svn/ver/3157/branches/future/cmake/Dependencies.cmake
+END
+lint.cmake
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/longjon/caffe/!svn/ver/3030/branches/future/cmake/lint.cmake
+END
+Targets.cmake
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/longjon/caffe/!svn/ver/3030/branches/future/cmake/Targets.cmake
+END
+Misc.cmake
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/longjon/caffe/!svn/ver/3053/branches/future/cmake/Misc.cmake
+END
+Cuda.cmake
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/longjon/caffe/!svn/ver/3030/branches/future/cmake/Cuda.cmake
+END
+Summary.cmake
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/longjon/caffe/!svn/ver/3053/branches/future/cmake/Summary.cmake
+END

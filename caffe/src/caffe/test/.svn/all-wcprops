@@ -1,0 +1,341 @@
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/longjon/caffe/!svn/ver/3157/branches/future/src/caffe/test
+END
+test_deconvolution_layer.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/longjon/caffe/!svn/ver/2917/branches/future/src/caffe/test/test_deconvolution_layer.cpp
+END
+test_platform.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/longjon/caffe/!svn/ver/2713/branches/future/src/caffe/test/test_platform.cpp
+END
+test_euclidean_loss_layer.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/longjon/caffe/!svn/ver/2849/branches/future/src/caffe/test/test_euclidean_loss_layer.cpp
+END
+test_db.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/longjon/caffe/!svn/ver/2918/branches/future/src/caffe/test/test_db.cpp
+END
+test_hinge_loss_layer.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/longjon/caffe/!svn/ver/2849/branches/future/src/caffe/test/test_hinge_loss_layer.cpp
+END
+test_accuracy_layer.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/longjon/caffe/!svn/ver/3157/branches/future/src/caffe/test/test_accuracy_layer.cpp
+END
+test_tanh_layer.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/longjon/caffe/!svn/ver/2854/branches/future/src/caffe/test/test_tanh_layer.cpp
+END
+test_power_layer.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/longjon/caffe/!svn/ver/2943/branches/future/src/caffe/test/test_power_layer.cpp
+END
+test_threshold_layer.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/longjon/caffe/!svn/ver/2849/branches/future/src/caffe/test/test_threshold_layer.cpp
+END
+test_benchmark.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/longjon/caffe/!svn/ver/2854/branches/future/src/caffe/test/test_benchmark.cpp
+END
+test_slice_layer.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/longjon/caffe/!svn/ver/3157/branches/future/src/caffe/test/test_slice_layer.cpp
+END
+test_stochastic_pooling.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/longjon/caffe/!svn/ver/3030/branches/future/src/caffe/test/test_stochastic_pooling.cpp
+END
+CMakeLists.txt
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/longjon/caffe/!svn/ver/3030/branches/future/src/caffe/test/CMakeLists.txt
+END
+test_contrastive_loss_layer.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/longjon/caffe/!svn/ver/2849/branches/future/src/caffe/test/test_contrastive_loss_layer.cpp
+END
+test_memory_data_layer.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/longjon/caffe/!svn/ver/2951/branches/future/src/caffe/test/test_memory_data_layer.cpp
+END
+test_protobuf.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/longjon/caffe/!svn/ver/2943/branches/future/src/caffe/test/test_protobuf.cpp
+END
+test_concat_layer.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/longjon/caffe/!svn/ver/3157/branches/future/src/caffe/test/test_concat_layer.cpp
+END
+test_eltwise_layer.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/longjon/caffe/!svn/ver/2849/branches/future/src/caffe/test/test_eltwise_layer.cpp
+END
+test_im2col_kernel.cu
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/longjon/caffe/!svn/ver/2713/branches/future/src/caffe/test/test_im2col_kernel.cu
+END
+test_solver.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/longjon/caffe/!svn/ver/3157/branches/future/src/caffe/test/test_solver.cpp
+END
+test_upgrade_proto.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/longjon/caffe/!svn/ver/3030/branches/future/src/caffe/test/test_upgrade_proto.cpp
+END
+test_convolution_layer.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/longjon/caffe/!svn/ver/2849/branches/future/src/caffe/test/test_convolution_layer.cpp
+END
+test_hdf5data_layer.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/longjon/caffe/!svn/ver/3157/branches/future/src/caffe/test/test_hdf5data_layer.cpp
+END
+test_filler.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/longjon/caffe/!svn/ver/2713/branches/future/src/caffe/test/test_filler.cpp
+END
+test_softmax_layer.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/longjon/caffe/!svn/ver/2849/branches/future/src/caffe/test/test_softmax_layer.cpp
+END
+test_util_blas.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/longjon/caffe/!svn/ver/2713/branches/future/src/caffe/test/test_util_blas.cpp
+END
+test_sigmoid_cross_entropy_loss_layer.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/longjon/caffe/!svn/ver/2849/branches/future/src/caffe/test/test_sigmoid_cross_entropy_loss_layer.cpp
+END
+test_im2col_layer.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/longjon/caffe/!svn/ver/2849/branches/future/src/caffe/test/test_im2col_layer.cpp
+END
+test_multinomial_logistic_loss_layer.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/longjon/caffe/!svn/ver/2849/branches/future/src/caffe/test/test_multinomial_logistic_loss_layer.cpp
+END
+test_syncedmem.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/longjon/caffe/!svn/ver/2713/branches/future/src/caffe/test/test_syncedmem.cpp
+END
+test_gradient_based_solver.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/longjon/caffe/!svn/ver/2943/branches/future/src/caffe/test/test_gradient_based_solver.cpp
+END
+test_infogain_loss_layer.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/longjon/caffe/!svn/ver/2849/branches/future/src/caffe/test/test_infogain_loss_layer.cpp
+END
+test_net.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/longjon/caffe/!svn/ver/3157/branches/future/src/caffe/test/test_net.cpp
+END
+test_lrn_layer.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/longjon/caffe/!svn/ver/2849/branches/future/src/caffe/test/test_lrn_layer.cpp
+END
+test_split_layer.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/longjon/caffe/!svn/ver/2943/branches/future/src/caffe/test/test_split_layer.cpp
+END
+test_common.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/longjon/caffe/!svn/ver/3030/branches/future/src/caffe/test/test_common.cpp
+END
+test_flatten_layer.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/longjon/caffe/!svn/ver/2849/branches/future/src/caffe/test/test_flatten_layer.cpp
+END
+test_data_transformer.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/longjon/caffe/!svn/ver/3030/branches/future/src/caffe/test/test_data_transformer.cpp
+END
+test_mvn_layer.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/longjon/caffe/!svn/ver/2849/branches/future/src/caffe/test/test_mvn_layer.cpp
+END
+test_random_number_generator.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/longjon/caffe/!svn/ver/2713/branches/future/src/caffe/test/test_random_number_generator.cpp
+END
+test_hdf5_output_layer.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/longjon/caffe/!svn/ver/2943/branches/future/src/caffe/test/test_hdf5_output_layer.cpp
+END
+test_neuron_layer.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/longjon/caffe/!svn/ver/3030/branches/future/src/caffe/test/test_neuron_layer.cpp
+END
+test_layer_factory.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/longjon/caffe/!svn/ver/3030/branches/future/src/caffe/test/test_layer_factory.cpp
+END
+test_internal_thread.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/longjon/caffe/!svn/ver/2713/branches/future/src/caffe/test/test_internal_thread.cpp
+END
+test_pooling_layer.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/longjon/caffe/!svn/ver/2849/branches/future/src/caffe/test/test_pooling_layer.cpp
+END
+test_data_layer.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/longjon/caffe/!svn/ver/3030/branches/future/src/caffe/test/test_data_layer.cpp
+END
+test_io.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/longjon/caffe/!svn/ver/3029/branches/future/src/caffe/test/test_io.cpp
+END
+test_inner_product_layer.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/longjon/caffe/!svn/ver/2849/branches/future/src/caffe/test/test_inner_product_layer.cpp
+END
+test_image_data_layer.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/longjon/caffe/!svn/ver/3030/branches/future/src/caffe/test/test_image_data_layer.cpp
+END
+test_caffe_main.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/longjon/caffe/!svn/ver/2849/branches/future/src/caffe/test/test_caffe_main.cpp
+END
+test_softmax_with_loss_layer.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/longjon/caffe/!svn/ver/2918/branches/future/src/caffe/test/test_softmax_with_loss_layer.cpp
+END
+test_maxpool_dropout_layers.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/longjon/caffe/!svn/ver/3030/branches/future/src/caffe/test/test_maxpool_dropout_layers.cpp
+END
+test_argmax_layer.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/longjon/caffe/!svn/ver/2849/branches/future/src/caffe/test/test_argmax_layer.cpp
+END
+test_blob.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/longjon/caffe/!svn/ver/3157/branches/future/src/caffe/test/test_blob.cpp
+END
+test_dummy_data_layer.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/longjon/caffe/!svn/ver/2849/branches/future/src/caffe/test/test_dummy_data_layer.cpp
+END
+test_math_functions.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/longjon/caffe/!svn/ver/2713/branches/future/src/caffe/test/test_math_functions.cpp
+END

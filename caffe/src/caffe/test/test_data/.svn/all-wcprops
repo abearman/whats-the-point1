@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/longjon/caffe/!svn/ver/3030/branches/future/src/caffe/test/test_data
+END
+sample_data.h5
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/longjon/caffe/!svn/ver/2849/branches/future/src/caffe/test/test_data/sample_data.h5
+END
+generate_sample_data.py
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/longjon/caffe/!svn/ver/2849/branches/future/src/caffe/test/test_data/generate_sample_data.py
+END
+sample_data_2_gzip.h5
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/longjon/caffe/!svn/ver/2849/branches/future/src/caffe/test/test_data/sample_data_2_gzip.h5
+END
+sample_data_list.txt
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/longjon/caffe/!svn/ver/2713/branches/future/src/caffe/test/test_data/sample_data_list.txt
+END

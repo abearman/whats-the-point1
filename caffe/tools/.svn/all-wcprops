@@ -1,0 +1,77 @@
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/longjon/caffe/!svn/ver/3157/branches/future/tools
+END
+net_speed_benchmark.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/longjon/caffe/!svn/ver/2713/branches/future/tools/net_speed_benchmark.cpp
+END
+finetune_net.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/longjon/caffe/!svn/ver/2713/branches/future/tools/finetune_net.cpp
+END
+train_net.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/longjon/caffe/!svn/ver/2713/branches/future/tools/train_net.cpp
+END
+caffe.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/longjon/caffe/!svn/ver/3157/branches/future/tools/caffe.cpp
+END
+device_query.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/longjon/caffe/!svn/ver/2713/branches/future/tools/device_query.cpp
+END
+upgrade_net_proto_binary.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/longjon/caffe/!svn/ver/2943/branches/future/tools/upgrade_net_proto_binary.cpp
+END
+upgrade_net_proto_text.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/longjon/caffe/!svn/ver/2943/branches/future/tools/upgrade_net_proto_text.cpp
+END
+test_net.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/longjon/caffe/!svn/ver/2713/branches/future/tools/test_net.cpp
+END
+extract_features.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/longjon/caffe/!svn/ver/3157/branches/future/tools/extract_features.cpp
+END
+CMakeLists.txt
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/longjon/caffe/!svn/ver/3030/branches/future/tools/CMakeLists.txt
+END
+compute_image_mean.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/longjon/caffe/!svn/ver/3028/branches/future/tools/compute_image_mean.cpp
+END
+convert_imageset.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/longjon/caffe/!svn/ver/3028/branches/future/tools/convert_imageset.cpp
+END

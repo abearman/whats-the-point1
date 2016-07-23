@@ -1,0 +1,107 @@
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/longjon/caffe/!svn/ver/3160/branches/future/include/caffe
+END
+net.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/longjon/caffe/!svn/ver/3030/branches/future/include/caffe/net.hpp
+END
+vision_layers.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/longjon/caffe/!svn/ver/3160/branches/future/include/caffe/vision_layers.hpp
+END
+data_layers.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/longjon/caffe/!svn/ver/3030/branches/future/include/caffe/data_layers.hpp
+END
+common.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/longjon/caffe/!svn/ver/3157/branches/future/include/caffe/common.hpp
+END
+data_transformer.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/longjon/caffe/!svn/ver/3030/branches/future/include/caffe/data_transformer.hpp
+END
+loss_layers.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/longjon/caffe/!svn/ver/3157/branches/future/include/caffe/loss_layers.hpp
+END
+layer_factory.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/longjon/caffe/!svn/ver/3030/branches/future/include/caffe/layer_factory.hpp
+END
+internal_thread.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/longjon/caffe/!svn/ver/2918/branches/future/include/caffe/internal_thread.hpp
+END
+caffe.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/longjon/caffe/!svn/ver/2849/branches/future/include/caffe/caffe.hpp
+END
+common_layers.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/longjon/caffe/!svn/ver/3160/branches/future/include/caffe/common_layers.hpp
+END
+solver.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/longjon/caffe/!svn/ver/3157/branches/future/include/caffe/solver.hpp
+END
+layer.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/longjon/caffe/!svn/ver/3160/branches/future/include/caffe/layer.hpp
+END
+python_layer.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/longjon/caffe/!svn/ver/3030/branches/future/include/caffe/python_layer.hpp
+END
+filler.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/longjon/caffe/!svn/ver/3157/branches/future/include/caffe/filler.hpp
+END
+blob.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/longjon/caffe/!svn/ver/3157/branches/future/include/caffe/blob.hpp
+END
+syncedmem.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/longjon/caffe/!svn/ver/2892/branches/future/include/caffe/syncedmem.hpp
+END
+neuron_layers.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/longjon/caffe/!svn/ver/3160/branches/future/include/caffe/neuron_layers.hpp
+END

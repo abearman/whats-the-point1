@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/longjon/caffe/!svn/ver/3030/branches/future/cmake/Templates
+END
+CaffeConfig.cmake.in
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/longjon/caffe/!svn/ver/3030/branches/future/cmake/Templates/CaffeConfig.cmake.in
+END
+CaffeConfigVersion.cmake.in
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/longjon/caffe/!svn/ver/3030/branches/future/cmake/Templates/CaffeConfigVersion.cmake.in
+END
+caffe_config.h.in
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/longjon/caffe/!svn/ver/3030/branches/future/cmake/Templates/caffe_config.h.in
+END

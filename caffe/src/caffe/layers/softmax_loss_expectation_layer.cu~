@@ -1,0 +1,470 @@
+#include <algorithm>
+#include <cfloat>
+#include <vector>
+#include <thrust/host_vector.h>
+#include <thrust/device_vector.h>
+#include <thrust/sort.h>
+#include <thrust/unique.h>
+#include <iterator>
+#include <stdio.h>
+#include <cuda_runtime.h>
+#include "cublas_v2.h"
+
+#include "caffe/layer.hpp"
+#include "caffe/util/math_functions.hpp"
+#include "caffe/vision_layers.hpp"
+
+namespace caffe {
+
+template <typename Dtype>
+__global__ void SumSupervisedPixels(const int nthreads,
+          const Dtype* label, const int spatial_dim,
+          const bool has_ignore_label_, const int ignore_label_, const int ignore_location_, 
+          Dtype* num_supervised) {
+  CUDA_KERNEL_LOOP(index, nthreads) {
+	  const int s = index % spatial_dim;
+    const int label_value = static_cast<int>(label[s]);
+    if (ignore_location_ || (has_ignore_label_ && (label_value == ignore_label_))) { // Unsupervised
+      num_supervised[index] = 0;
+    } else { // Supervised
+			num_supervised[index] = 1;
+    }
+  }
+}
+
+/*template <typename Dtype>
+__global__ void SumQ(const int nthreads, const Dtype* prob_data,
+          const Dtype* label, const int spatial_dim,
+          const bool has_ignore_label_, const int ignore_label_, const int ignore_location_, 
+          Dtype* Q) {
+  CUDA_KERNEL_LOOP(index, nthreads) {
+    const int s = index % spatial_dim;
+    const int label_value = static_cast<int>(label[s]);
+		const int objectness = static_cast<int>(label[1 * spatial_dim + s]); // Value between 0 and 255
+    const double S0 = max(prob_data[0 * spatial_dim + s], Dtype(FLT_MIN)); // P(class=0) in our model
+    const double P = 1.0 - ((double)(objectness+1) / 257.0); // P(class=0) acording to prior
+
+    if (ignore_location_ || (has_ignore_label_ && (label_value == ignore_label_))) { // Unsupervised
+      Q[index] = P*S0 + (1-P)*(1-S0);
+    } else { // Supervised
+	  	Q[index] = 0;
+    }
+  }
+}*/
+
+template <typename Dtype>
+__global__ void SoftmaxLossExpectationForwardGPU(const int nthreads,
+          const Dtype* prob_data, const Dtype* label, Dtype* loss,
+          const int num, const int dim, const int spatial_dim,
+          const bool has_ignore_label_, const int ignore_label_, 
+					const bool ignore_objectness_, const bool ignore_location_, const bool ignore_constraint_,
+          int *max_pixels, int num_supervised) {
+
+	CUDA_KERNEL_LOOP(index, nthreads) {
+		const int s = index % spatial_dim;
+		const int label_value = static_cast<int>(label[s]);
+		const int channels = dim / spatial_dim;
+
+		int num_classes_in_image = 0;
+		while (true) { // Gets all the unique numbers out of the 3rd channel
+			int class_ = static_cast<int>(label[2*spatial_dim + num_classes_in_image]);
+			if (class_ == 0) break;
+      num_classes_in_image++;
+		}
+
+		const int L = num_classes_in_image + 1;
+		// If it's the image-level labels case (no supervision)
+		// Treat max pixel for the class as supervised
+		if (ignore_location_) {
+			loss[index] = 0;
+		
+			// Only sum over classes in image (or background)	
+			int c = 0;
+			while (true) {
+				int class_ = static_cast<int>(label[2*spatial_dim + c]);
+				if (s == (max_pixels[class_]-1)) {
+					double Sc = max(prob_data[class_ * spatial_dim + s], Dtype(FLT_MIN));
+					loss[index] -= (log( Sc ) / L);
+				}
+				if (class_ == 0) break;
+				c++;
+			}
+		}		
+
+		// Binary vector length 21 of which classes (including bg) are in image
+		/*bool class_in_image[21] = {false};
+		int L_plus = 0;
+		int c = 0;
+    while (true) { // Gets all the unique numbers out of the 3rd channel
+      int class_ = static_cast<int>(label[2*spatial_dim + c]);
+      class_in_image[class_] = true;
+			L_plus++; // Includes background class in count
+      if (class_ == 0) break; // Includes background class
+			c++;
+    }
+		int L_minus = channels - L_plus;
+
+		// Gets the number of supervised vs. unsupervised pixels (0 supervised if image-level-labels)
+		int num_unsupervised = spatial_dim;
+		num_unsupervised -= num_supervised;
+
+		loss[index] = 0;	
+		// If it's the image-level labels case (no supervision)
+		// Treat max pixel for the class as supervised
+		if (ignore_location_) {
+			// Loss "classes in image"	
+			for (int c = 0; c < channels; c++) {
+				// Sums over classes in image (or background) where s is max-scoring pixel for the class
+				if (class_in_image[c] && (s == max_pixels[c]-1)) { 
+					printf("Contributing to loss, class: %d, index: %d\n", c, index);
+					double Sc = max(prob_data[c * spatial_dim + s], Dtype(FLT_MIN));
+					loss[index] -= (log( Sc ) / L_plus); // Normalization by number of labels in image
+				}
+			}
+		} 
+
+		// Loss: supervision
+		if (!ignore_location_ && (has_ignore_label_ && (label_value != ignore_label_))) { // Supervised
+			double Sc = max(prob_data[label_value * spatial_dim + s], Dtype(FLT_MIN));
+			loss[index] -= (log( Sc ) / num_supervised); // Normalization by number supervised
+		}
+
+		// Loss "absence" for unsupervised (255) pixels
+    if (!ignore_constraint_ && (has_ignore_label_ && (label_value == ignore_label_))) {
+			for (int c = 0; c < channels; c++) {
+				// Sums over classes NOT in image where s is max-scoring pixel for the class
+				if (!class_in_image[c] && (s == max_pixels[c]-1)) { 
+					double Sc = max(prob_data[c * spatial_dim + s], Dtype(FLT_MIN));
+					loss[index] -= (log( 1 - Sc ) / L_minus); // Normalization by number of labels NOT in image
+				}
+			}   
+    }
+
+		// Loss "objectness" for unsupervised (255) pixels 
+		if (!ignore_objectness_ && (has_ignore_label_ && (label_value == ignore_label_))) {
+			const int objectness = static_cast<int>(label[1 * spatial_dim + s]); // Value between 0 and 255
+      const double S0 = max(prob_data[0 * spatial_dim + s], Dtype(FLT_MIN)); // P(class=0) in our model
+      const double P = 1.0 - ((double)(objectness+1) / 257.0); // P(class=0) acording to prior
+			loss[index] -= ((P*log(S0) + (1-P)*log(1-S0)) / num_unsupervised);
+		}*/
+	}
+}
+
+template <typename Dtype>
+void SoftmaxWithLossExpectationLayer<Dtype>::Forward_gpu(
+    const vector<Blob<Dtype>*>& bottom, const vector<Blob<Dtype>*>& top) {
+  softmax_layer_->Forward(softmax_bottom_vec_, softmax_top_vec_);
+  const Dtype* prob_data = prob_.gpu_data();
+  const Dtype* label = bottom[1]->gpu_data();
+  const int dim = prob_.count() / outer_num_;
+  CHECK_EQ(outer_num_ * inner_num_ * 3, bottom[1]->count(0))
+      << "Number of labels must match the number of predictions because there are three channels,"
+      << "one for gt labels per pixel and one for objectness labels per pixel and one for unique classes; "
+      << "e.g., if softmax axis == 1 and prediction shape is (N, C, H, W), "
+      << "label count (number of labels) must be 3*N*H*W, "
+      << "with integer values in {0, 1, ..., C-1}.";
+
+	fflush(stdout);
+  const int nthreads = outer_num_ * inner_num_;
+  // Since this memory is not used for anything until it is overwritten
+  // on the backward pass, we use it here to avoid having to allocate new GPU
+  // memory to accumulate intermediate results in the kernel.
+  Dtype* loss_data = bottom[0]->mutable_gpu_diff();
+  // Similarly, this memory is never used elsewhere, and thus we can use it
+  // to avoid having to allocate additional GPU memory.
+  Dtype* counts = prob_.mutable_gpu_diff();
+	const int channels = dim / inner_num_;
+
+	// ------ Get the max-scoring pixels -----------
+	float *prob_data_float;
+	int num_elements = inner_num_ * channels;
+	cudaMalloc((void**)&prob_data_float, sizeof(float) * num_elements);
+	
+	cublasStatus_t status;
+	cublasHandle_t handle;
+	status = cublasCreate(&handle);
+	if (status != CUBLAS_STATUS_SUCCESS) printf("Cublas create failed\n");
+
+	status = cublasSetVector(num_elements, sizeof(float), prob_data, 1, prob_data_float, 1);
+	if (status != CUBLAS_STATUS_SUCCESS) printf("Cublas set vector failed\n");
+
+	int max_pixels[channels]; // Pixel indices for max pixel probability for each class 
+	for (int class_ = 0; class_ < channels; class_++) {
+    int start_index = class_ * inner_num_;
+		int idx_max;
+  	status = cublasIsamax(handle, inner_num_, prob_data_float + start_index, 1, &idx_max);
+  	if (status != CUBLAS_STATUS_SUCCESS) printf("cublasIsamax failed\n");
+		max_pixels[class_] = idx_max;  
+  }
+
+	cublasDestroy(handle);
+	cudaFree(prob_data_float);
+	int *max_pixels1;
+	cudaMalloc((void**)&max_pixels1, sizeof(int) * channels);
+	status = cublasSetVector(channels, sizeof(int), &max_pixels, 1, max_pixels1, 1);
+	// ----------------------------------------------------------------
+
+	// Gets the number of supervised pixels
+	SumSupervisedPixels<Dtype><<<CAFFE_GET_BLOCKS(nthreads), 
+			CAFFE_CUDA_NUM_THREADS>>>(nthreads, label, inner_num_, has_ignore_label_, ignore_label_, ignore_location_, counts); 
+	Dtype num_supervised_d;
+	caffe_gpu_asum(nthreads, counts, &num_supervised_d);	
+	int num_supervised = (int) num_supervised_d; 
+
+  // NOLINT_NEXT_LINE(whitespace/operators)
+	SoftmaxLossExpectationForwardGPU<Dtype><<<CAFFE_GET_BLOCKS(nthreads),
+      CAFFE_CUDA_NUM_THREADS>>>(nthreads, prob_data, label, loss_data,
+      outer_num_, dim, inner_num_, has_ignore_label_, ignore_label_, ignore_objectness_, ignore_location_, ignore_constraint_, max_pixels1, num_supervised); 
+	Dtype loss;
+  caffe_gpu_asum(nthreads, loss_data, &loss);
+	
+	// Calculate objectness sum (separate data)
+	/*if (!ignore_objectness_) {
+		SumQ<Dtype><<<CAFFE_GET_BLOCKS(nthreads), 
+				CAFFE_CUDA_NUM_THREADS>>>(nthreads, prob_data, label, inner_num_, has_ignore_label_, ignore_label_, ignore_location_, counts);
+		Dtype Q; // Sum over unsupervised pixels of objectness term
+		caffe_gpu_asum(nthreads, counts, &Q);
+		int num_unsupervised = inner_num_;
+    num_unsupervised -= num_supervised;
+
+		loss -= log( Q / num_unsupervised );
+	}*/	
+
+  loss /= outer_num_;
+  
+	top[0]->mutable_cpu_data()[0] = loss;
+  if (top.size() == 2) {
+    top[1]->ShareData(prob_);
+  }
+}
+
+template <typename Dtype>
+__global__ void SoftmaxLossExpectationBackwardGPU(const int nthreads, const Dtype* prob_data, const Dtype* top,
+          const Dtype* label, Dtype* bottom_diff, const int num, const int dim,
+          const int spatial_dim, const bool has_ignore_label_,
+          const int ignore_label_, const bool ignore_objectness_, const bool ignore_location_, const bool ignore_constraint_, int *max_pixels, int num_supervised) {
+
+  CUDA_KERNEL_LOOP(index, nthreads) {
+		const int s = index % spatial_dim;
+    const int label_value = static_cast<int>(label[s]);
+
+		int num_classes_in_image = 0;
+    while (true) { // Gets all the unique numbers out of the 3rd channel
+      int class_ = static_cast<int>(label[2*spatial_dim + num_classes_in_image]);
+      if (class_ == 0) break;
+      num_classes_in_image++;
+    }
+	
+		const int channels = dim / spatial_dim;
+		const int L = num_classes_in_image + 1;
+    // If it's the image-level labels case (no supervision)
+    // Treat max pixel for the class as supervised
+    if (ignore_location_) {
+			int numMaxFor = 0;
+			int c = 0;
+			while (true) {
+				int class_ = static_cast<int>(label[2*spatial_dim + c]);
+       	if (s == (max_pixels[class_]-1)) numMaxFor++;
+				if (class_ == 0) break;
+				c++;
+      }
+
+      for (int c = 0; c < channels; c++) {
+      	bottom_diff[c*spatial_dim + s] *= numMaxFor;
+      }
+
+			c = 0;
+      while (true) {
+      	int class_ = static_cast<int>(label[2*spatial_dim + c]);
+        if (s == (max_pixels[class_]-1)) {
+        	bottom_diff[class_*spatial_dim+s] -= 1;
+        }
+				if (class_ == 0) break;
+				c++;
+      }
+      
+			for (int c = 0; c < channels; c++) {
+      	bottom_diff[c*spatial_dim + s] /= L;
+			}
+		}
+
+    /*const int s = index % spatial_dim;
+    const int label_value = static_cast<int>(label[s]);
+		const int channels = dim / spatial_dim;
+
+		// Binary vector length 21 of which classes (including bg) are in image
+		bool class_in_image[21] = {false};
+		int L_plus = 0;
+		int c = 0;
+		while (true) { // Gets all the unique numbers out of the 3rd channel
+      int class_ = static_cast<int>(label[2*spatial_dim + c]);
+    	class_in_image[class_] = true; // Includes background class as being in image
+		  L_plus++;
+			if (class_ == 0) break;
+      c++;
+    }
+		int L_minus = channels - L_plus;
+
+		// Gets the number of supervised vs. unsupervised pixels (0 supervised if image-level-labels)
+		int num_unsupervised = spatial_dim;
+		num_unsupervised -= num_supervised;
+
+
+		// Gradient starts off at 0
+		for (int c = 0; c < channels; ++c) {
+    	// For unsupervised pixel, gradient is 0 for all classes
+    	bottom_diff[c * spatial_dim + s] = 0;
+    }
+
+    // If it's the image-level labels case (no supervision)
+    // Gradient "classes in image" 
+    if (ignore_location_) {
+			int numMaxFor = 0;
+			for (int c = 0; c < channels; c++) {
+				// Sums numMaxFor over all classes that are present in image and pixel s is maximal
+				if (class_in_image[c] && (s == max_pixels[c]-1)) {
+					numMaxFor++;
+				}
+			}	
+
+			for (int c = 0; c < channels; c++) {
+				//double Sc = max(prob_data[c * spatial_dim + s], Dtype(FLT_MIN));
+      	//bottom_diff[c*spatial_dim + s] = Sc * numMaxFor; // True for ANY pixel (supervised or unsupervised)
+				if (class_in_image[c] && (s == max_pixels[c]-1)) {
+          bottom_diff[c*spatial_dim + s] -= 1;
+        }
+      }
+
+			for (int c = 0; c < channels; c++) {
+        bottom_diff[c*spatial_dim + s] /= L_plus; // Normalize by number of classes in image 
+      }
+		}
+		
+		//Gradient: supervision
+    if (!ignore_location_ && (has_ignore_label_ && (label_value != ignore_label_))) { // Supervised
+			for (int c = 0; c < channels; c++) {
+				double Sc = max(prob_data[c * spatial_dim + s], Dtype(FLT_MIN));
+				if (c == label_value) { // For supervised pixel, for target class t, gradient is S_t - 1
+					bottom_diff[c*spatial_dim + s] = (Sc - 1) / num_supervised; 
+				} else { // For supervised pixel, for any other class, gradient is S_t
+					bottom_diff[c*spatial_dim + s] = Sc / num_supervised; //Normalized by num supervised
+				}
+			} 
+		} // For unsupervised pixel, gradient is 0 for all classes (already set)
+
+		// Gradient "absence" for unsupervised (255) pixels
+    if (!ignore_constraint_ && (has_ignore_label_ && (label_value == ignore_label_))) {
+			// Calculate R = sum of S_ic / (1-S_ic)
+			double R = 0;
+			for (int c = 0; c < channels; c++) {
+				if (!class_in_image[c] && (s == max_pixels[c]-1)) {
+					double Sc = max(prob_data[c * spatial_dim + s], Dtype(FLT_MIN));
+					R += (Sc / (1-Sc));	
+				}
+			}
+
+      for (int c = 0; c < channels; c++) {
+        double Sc = max(prob_data[c * spatial_dim + s], Dtype(FLT_MIN));
+        if (!class_in_image[c] && (s == max_pixels[c]-1)) { 
+          bottom_diff[c*spatial_dim + s] += ((-Sc*R + (Sc / (1-Sc))) / L_minus); 
+        } else {
+          bottom_diff[c*spatial_dim + s] += (-Sc*R / L_minus);
+        }
+      }
+    }
+
+		// Gradient "objectness" for unsupervised (255) pixels
+		if (!ignore_objectness_ && (has_ignore_label_ && (label_value == ignore_label_))) {
+			const int objectness = static_cast<int>(label[1 * spatial_dim + s]); // Value between 0 and 255
+  	  const double S0 = max(prob_data[0 * spatial_dim + s], Dtype(FLT_MIN)); // P(class=0) in our model
+	    const double P = 1.0 - ((double)(objectness+1) / 257.0); // P(class=0) acording to prior
+		
+			for (int c = 0; c < channels; c++) {
+				if (c == 0) { // Background
+					bottom_diff[c*spatial_dim + s] += (S0 - P)/num_unsupervised;
+				} else { 
+					double Sc = max(prob_data[c*spatial_dim + s], Dtype(FLT_MIN));
+					bottom_diff[c*spatial_dim + s] += (Sc*((P-S0)/(1-S0))) / num_unsupervised;				
+				}
+			}
+			// For supervised pixels, gradient objectness is 0 (already done)
+		}*/ 
+
+	}
+}
+
+template <typename Dtype>
+void SoftmaxWithLossExpectationLayer<Dtype>::Backward_gpu(const vector<Blob<Dtype>*>& top,
+    const vector<bool>& propagate_down, const vector<Blob<Dtype>*>& bottom) {
+  if (propagate_down[1]) {
+    LOG(FATAL) << this->type()
+               << " Layer cannot backpropagate to label inputs.";
+  }
+  if (propagate_down[0]) {
+    Dtype* bottom_diff = bottom[0]->mutable_gpu_diff();
+    const Dtype* prob_data = prob_.gpu_data();
+    const Dtype* top_data = top[0]->gpu_data();
+    caffe_gpu_memcpy(prob_.count() * sizeof(Dtype), prob_data, bottom_diff);
+    const Dtype* label = bottom[1]->gpu_data();
+    const int dim = prob_.count() / outer_num_;
+    const int nthreads = outer_num_ * inner_num_;
+    // Since this memory is never used for anything else,
+    // we use to to avoid allocating new GPU memory.
+    Dtype* counts = prob_.mutable_gpu_diff();
+		const int channels = dim / inner_num_;
+
+		// ------ Get the max-scoring pixels -----------
+  	float *prob_data_float;
+  	int num_elements = inner_num_ * channels;
+  	cudaMalloc((void**)&prob_data_float, sizeof(float) * num_elements);
+
+  	cublasStatus_t status;
+  	cublasHandle_t handle;
+  	status = cublasCreate(&handle);
+  	if (status != CUBLAS_STATUS_SUCCESS) printf("Cublas create failed\n");
+
+  	status = cublasSetVector(num_elements, sizeof(float), prob_data, 1, prob_data_float, 1);
+  	if (status != CUBLAS_STATUS_SUCCESS) printf("Cublas set vector failed\n");
+
+  	int max_pixels[channels]; // Pixel indices for max pixel probability for each class 
+  	for (int class_ = 0; class_ < channels; class_++) {
+    	int start_index = class_ * inner_num_;
+    	int idx_max;
+    	status = cublasIsamax(handle, inner_num_, prob_data_float + start_index, 1, &idx_max);
+    	if (status != CUBLAS_STATUS_SUCCESS) printf("cublasIsamax failed\n");
+    	max_pixels[class_] = idx_max;
+  	}
+
+  	cublasDestroy(handle);
+  	cudaFree(prob_data_float);
+  	int *max_pixels1;
+  	cudaMalloc((void**)&max_pixels1, sizeof(int) * channels);
+	  status = cublasSetVector(channels, sizeof(int), &max_pixels, 1, max_pixels1, 1);
+		// --------------------------------------------------------
+
+		// Gets the number of supervised pixels
+	  SumSupervisedPixels<Dtype><<<CAFFE_GET_BLOCKS(nthreads),
+  	    CAFFE_CUDA_NUM_THREADS>>>(nthreads, label, inner_num_, has_ignore_label_, ignore_label_, ignore_location_, counts);
+  	Dtype num_supervised_d;
+  	caffe_gpu_asum(nthreads, counts, &num_supervised_d);
+		int num_supervised = (int) num_supervised_d;
+
+		// Gets objectness term (sum)
+		/*SumQ<Dtype><<<CAFFE_GET_BLOCKS(nthreads),
+        CAFFE_CUDA_NUM_THREADS>>>(nthreads, prob_data, label, inner_num_, has_ignore_label_, ignore_label_, ignore_location_, counts);
+    Dtype Q; // Sum over unsupervised pixels of objectness term
+    caffe_gpu_asum(nthreads, counts, &Q);*/
+
+    // NOLINT_NEXT_LINE(whitespace/operators)
+    SoftmaxLossExpectationBackwardGPU<Dtype><<<CAFFE_GET_BLOCKS(nthreads),
+        CAFFE_CUDA_NUM_THREADS>>>(nthreads, prob_data, top_data, label, bottom_diff,
+        outer_num_, dim, inner_num_, has_ignore_label_, ignore_label_, ignore_objectness_, ignore_location_, ignore_constraint_, max_pixels1, num_supervised);
+  
+	  const Dtype loss_weight = top[0]->cpu_diff()[0];
+    caffe_gpu_scal(prob_.count(), loss_weight / outer_num_, bottom_diff);
+  }
+}
+
+INSTANTIATE_LAYER_GPU_FUNCS(SoftmaxWithLossExpectationLayer);
+
+}  // namespace caffe

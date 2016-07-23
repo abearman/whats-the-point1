@@ -1,0 +1,47 @@
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/longjon/caffe/!svn/ver/2854/branches/future/tools/extra
+END
+extract_seconds.py
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/longjon/caffe/!svn/ver/2854/branches/future/tools/extra/extract_seconds.py
+END
+plot_log.gnuplot.example
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/longjon/caffe/!svn/ver/2713/branches/future/tools/extra/plot_log.gnuplot.example
+END
+parse_log.py
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/longjon/caffe/!svn/ver/2854/branches/future/tools/extra/parse_log.py
+END
+resize_and_crop_images.py
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/longjon/caffe/!svn/ver/2713/branches/future/tools/extra/resize_and_crop_images.py
+END
+parse_log.sh
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/longjon/caffe/!svn/ver/2713/branches/future/tools/extra/parse_log.sh
+END
+plot_training_log.py.example
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/longjon/caffe/!svn/ver/2713/branches/future/tools/extra/plot_training_log.py.example
+END
+launch_resize_and_crop_images.sh
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/longjon/caffe/!svn/ver/2713/branches/future/tools/extra/launch_resize_and_crop_images.sh
+END

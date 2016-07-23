@@ -1,0 +1,17 @@
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/longjon/caffe/!svn/ver/3160/branches/future/include/caffe/test
+END
+test_gradient_check_util.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/longjon/caffe/!svn/ver/3160/branches/future/include/caffe/test/test_gradient_check_util.hpp
+END
+test_caffe_main.hpp
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/longjon/caffe/!svn/ver/3030/branches/future/include/caffe/test/test_caffe_main.hpp
+END

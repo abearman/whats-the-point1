@@ -8,6 +8,7 @@ This library is a custom build of Caffe for semantic image segmentation with poi
 
 All Caffe src files are in the [caffe](caffe/) directory. All code and scripts to run and evaluate the various models are in the [whats-the-point-2016](whats-the-point-2016/) directory.
 
-``caffe/src/caffe/layers/softmax_loss_expectation_layer.cpp``
-
-* 
+Key Caffe src files:
+* [``softmax_loss_expectation_layer.cpp``](https://github.com/abearman/whats-the-point1/blob/master/caffe/src/caffe/layers/softmax_loss_expectation_layer.cpp): CPU version of our custom loss layer 
+* [``softmax_loss_expectation_layer.cu``](https://github.com/abearman/whats-the-point1/blob/454f0b04d8875349d287801d1041aa9820fe7f50/caffe/src/caffe/layers/softmax_loss_expectation_layer.cu): GPU version of our custom loss layer
+* [``loss_layers.hpp``](https://github.com/abearman/whats-the-point1/blob/454f0b04d8875349d287801d1041aa9820fe7f50/caffe/include/caffe/loss_layers.hpp): Registers our new loss layer

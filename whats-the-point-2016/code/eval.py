@@ -18,7 +18,7 @@ import constants
 
 
 is_pascal = True
-is_test = False
+is_test = True 
 is_numbers = True
 is_visualize = True 
 is_color = True
@@ -42,15 +42,10 @@ print IMAGES_DIR
 print GT_DIR
 print VAL_FILE
 
-MODELS_DIR = '/imagenetdb3/abearman/caffe/models/fcn-32s-pascal/'
+MODELS_DIR = '../../caffe/models/fcn-32s-pascal/'
 
 DIR = '2012/image-level-labels-proportional-half/'
-MODEL = 'image-level-labels-proportional-half_step6000.caffemodel'
-#DIR = '2012/bbox-cls-con-proportional/'
-#MODEL = 'bbox-cls-con-proportional_step33000.caffemodel'
-
-#DIR = '2012/100-fs-rest-points/'
-#MODEL = '100-fs-rest-points_step34000.caffemodel'
+MODEL = 'image-level-labels-proportional-half_step50000.caffemodel'
 
 PROTOTEXT_FILE = MODELS_DIR + DIR + 'deploy.prototxt'
 CAFFE_MODEL = MODELS_DIR + DIR + 'iters/' + MODEL
@@ -59,7 +54,7 @@ OUTPUT_DIR = MODELS_DIR + DIR
 NUM_CLASSES = 21 if is_pascal else 33
 
 def main(argv):
-	sys.path.append('/imagenetdb3/abearman/caffe/python/')
+	sys.path.append('../../caffe/python/')
 	print "Importing caffe ..."
 	import caffe
 
@@ -208,15 +203,18 @@ def visualize_image(out, image_path, im):
 		#cb = colorbar_index(ncolors=len(classes), cmap=cmap, shrink=0.5, labels=classes)
 		#cb.ax.tick_params(labelsize=12)
 
-		if not os.path.exists(OUTPUT_DIR + '/images'):
-			os.makedirs(OUTPUT_DIR + '/images')
-		im.save(OUTPUT_DIR + '/images/' + basename + '_in.png')
-		Image.fromarray(output).save(OUTPUT_DIR + '/images/' + basename + '_out.png')
-	else:	
 		out = out.astype(np.uint8)
-		if not os.path.exists(OUTPUT_DIR + '/test-images'):
-			os.makedirs(OUTPUT_DIR + '/test-images')
-		Image.fromarray(out).save(OUTPUT_DIR + '/test-images/' + basename + '.png')
+		if is_test:
+			if not os.path.exists(OUTPUT_DIR + '/test-images'):
+				os.makedirs(OUTPUT_DIR + '/test-images')
+			im.save(OUTPUT_DIR + '/test-images/' + basename + '_in.png')
+			Image.fromarray(out).save(OUTPUT_DIR + '/test-images/' + basename + '.png')
+		else: 
+			if not os.path.exists(OUTPUT_DIR + '/images'):
+				os.makedirs(OUTPUT_DIR + '/images')
+			im.save(OUTPUT_DIR + '/images/' + basename + '_in.png')
+			Image.fromarray(output).save(OUTPUT_DIR + '/images/' + basename + '_out.png')
+
 
 # Convenience functions for working with colour ramps and bars
 def colorbar_index(ncolors, cmap, labels=None, **kwargs):

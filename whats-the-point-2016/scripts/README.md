@@ -1,0 +1,1 @@
+These scripts are all just examples of how to run [``../code/solve.py``](https://github.com/abearman/whats-the-point1/blob/master/whats-the-point-2016/code/solve.py) with different arguments. You will have to change the file paths in order to run them.

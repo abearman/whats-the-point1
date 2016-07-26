@@ -5,18 +5,12 @@ import os
 import sys
 import numpy as np
 
-MODELS_DIR = '/imagenetdb3/abearman/caffe/models/fcn-32s-pascal/'
-#BASE_MODEL = '/imagenetdb3/abearman/caffe/models/vgg16-conv-pascal/vgg16-conv-pascal.caffemodel'
-#BASE_MODEL = '/imagenetdb3/abearman/caffe/models/vgg16-conv/model.caffemodel'
+MODELS_DIR = '../../caffe/models/fcn-32s-pascal/'
 
 def main():
 	options = set_up_parser()
 	global BASE_MODEL
-	BASE_MODEL = '/imagenetdb3/abearman/caffe/models/'
-	if options.siftflow:
-		BASE_MODEL += 'vgg16-conv-siftflow/vgg16-conv-siftflow.caffemodel'
-	else:
-		BASE_MODEL += 'vgg16-conv-pascal/vgg16-conv-pascal.caffemodel'
+	BASE_MODEL = '../../caffe/models/vgg16-conv-pascal/vgg16-conv-pascal.caffemodel'
 	
 	update_train_val(options)
 	update_deploy(options)
@@ -45,13 +39,12 @@ def train_net(solver, options):
 			#save_every *= 2
 
 def set_up_net(options):
-	sys.path.append('/imagenetdb3/abearman/caffe/python/')
+	sys.path.append('../../caffe/python/')
 	print 'Importing caffe ...'
 	import caffe
 
 	caffe.set_mode_gpu()
-	#caffe.set_device(int(options.gpu))
-	caffe.set_device(0)	
+	caffe.set_device(int(options.gpu))
 
 	SOLVER_FILE = MODELS_DIR + options.year + '/' + options.output_dir + '/solver.prototxt'
 	solver = caffe.SGDSolver(SOLVER_FILE)

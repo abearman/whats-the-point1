@@ -1,4 +1,17 @@
-# Key Files:
+# Files to Run and Evaluate Models:
+
+## ``solve.py``
+
+This script trains a fully-connected, 32 pixel stride convolutional Caffe network for the PASCAL VOC 2012 segmentation task. It uses our [custom Caffe softmax loss layer](https://github.com/abearman/whats-the-point1/blob/454f0b04d8875349d287801d1041aa9820fe7f50/caffe/src/caffe/layers/softmax_loss_expectation_layer.cu) to do semantic segmentation using the information provided by image-level labels, point supervision, and an objectness prior. 
+
+By default, this script runs Caffe in GPU mode. You can change this by changing the line ``caffe.set_mode_gpu()`` to ``caffe.set_mode_cpu()``. 
+
+By default, the new model is initialized from [this model](https://github.com/abearman/whats-the-point1/tree/master/caffe/models/vgg16-conv-pascal), but you can optionally specify a different model to intialize from (e.g., if you want to suspend and resume training).
+ 
+The script saves a model every 1,000 iterations.
+
+### Inputs
+
 
 ## ``eval.py``
 

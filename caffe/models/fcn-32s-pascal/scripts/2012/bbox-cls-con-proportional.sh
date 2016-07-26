@@ -1,2 +1,0 @@
-#!/bin/bash
-python /imagenetdb3/abearman/caffe/models/code/solve.py --year=2012 --output=bbox-cls-con-proportional --lr=1e-5 --train-img=/imagenetdb3/abearman/data/segm_lmdb/lmdb-pascal_2012t_SBDtv_minus_2012v/lmdb-bbox-proportional-img --train-gt=/imagenetdb3/abearman/data/segm_lmdb/lmdb-pascal_2012t_SBDtv_minus_2012v/lmdb-bbox-proportional-gt3 --expectation --location --constraint --classes --gpu=1 --display=1 --init-from=/imagenetdb3/abearman/caffe/models/fcn-32s-pascal/2012/bbox-cls-con-proportional/iters/bbox-cls-con-proportional_step25000.caffemodel --start-iter=25000 

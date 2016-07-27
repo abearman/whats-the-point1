@@ -23,9 +23,9 @@ You can see all inputs and their defaults in the ``set_up_parser`` function.
 * **lr**: The learning rate hyperparameter. Default: 1e-5.
 * **momentum**: The momentum hyperparameter. Default: 0.9
 * **gpu**: Which GPU ID to use, if on GPU mode. Default: 0.
-* **display**: Print output every <display> iterations. Default: 20.
+* **display**: Print output every ``display`` iterations. Default: 20.
 * **batch-size**: Size of minibatch of images. Default: 20.
-* **init-from**: If specified, initialize the model from the .caffemodel at <init-from> path. Otherwise, the VGG16-CONV model will be used. Default: None. 
+* **init-from**: If specified, initialize the model from the .caffemodel at ``init-from`` path. Otherwise, the VGG16-CONV model will be used. Default: None. 
 * **expectation**: Whether or not to use our custom loss function. Default: false.
 * **location**: The "supervised" term; if true, use point supervision (i.e., the location information provided by human points). Default: false. 
 * **constraint**: The "constraint" term; if true, use the *absence* of a class label as a signal. Default: false.
@@ -35,7 +35,7 @@ You can see all inputs and their defaults in the ``set_up_parser`` function.
 * **no-norm-cls**: If true, do not normalize the classes term. Default: false.
 * **no-norm-con**: If true, do not normalize the constraint term. Default: false.
 * **no-norm-obj**: If true, do not normalize the objectness term. Default: false.
-* **start-iter**: If specified, start the number of iterations at <start-iter>. Useful for starting and stopping training, when you want the name of the model to reflect how many iterations it has actually undergone. Default: None. 
+* **start-iter**: If specified, start the number of iterations at ``start-iter``. Useful for starting and stopping training, when you want the name of the model to reflect how many iterations it has actually undergone. Default: None. 
 
 So, a typical use case of this script looks like:
 

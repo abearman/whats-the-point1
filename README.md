@@ -3,6 +3,9 @@ Code for our ECCV paper [What's the Point: Semantic Segmentation with Point Supe
 ## Summary
 This library is a custom build of Caffe for semantic image segmentation with point supervision. It is written for the "FCN-32S-PASCAL" model (fully-convolutional network, stride of 32 for PASCAL VOC 2012), based on [this model](https://github.com/shelhamer/fcn.berkeleyvision.org/tree/master/voc-fcn32s). More details on the original model are available [here](https://github.com/shelhamer/fcn.berkeleyvision.org). 
 
+## Quick Start
+See the [code README page](https://github.com/abearman/whats-the-point1/tree/master/whats-the-point-2016/code) to get started.
+
 ## Code Structure
 
 All Caffe src files and models are in the [caffe](caffe/) directory. All code and scripts to run and evaluate the various models are in the [whats-the-point-2016](whats-the-point-2016/) directory.

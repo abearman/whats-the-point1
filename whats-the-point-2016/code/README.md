@@ -13,7 +13,7 @@ By default, the new model is initialized from [this model](https://github.com/ab
 ### Inputs
 You can see all inputs and their defaults in the ``set_up_parser`` function.
 
-* **output**: Where do you want the output to go? No default, must be specified.
+* **output**: A name for the model output directory (not a full path), e.g. "real1-click1-cls-con-obj." No default, must be specified.
 * **year**: The year of the PASCAL VOC challenge. Default: 2012.
 * **train-img**: The path to the lmdb containing the training jpg images.
 * **train-gt**: The path to the lmdb containing the ground truth segmentations (with the correct class labels) for the set of training images.
@@ -26,7 +26,21 @@ You can see all inputs and their defaults in the ``set_up_parser`` function.
 * **display**: Print output every <display> iterations. Default: 20.
 * **batch-size**: Size of minibatch of images. Default: 20.
 * **init-from**: If specified, initialize the model from the .caffemodel at <init-from> path. Otherwise, the VGG16-CONV model will be used. Default: None. 
-* ** 
+* **expectation**: Whether or not to use our custom loss function. Default: false.
+* **location**: The "supervised" term; if true, use point supervision (i.e., the location information provided by human points). Default: false. 
+* **constraint**: The "constraint" term; if true, use the *absence* of a class label as a signal. Default: false.
+* **rank**: Whether or not to rank multiple human points by the order in which they were pointed to. This is only relevant if you're using more than one point per object class (which we did not do for our main experiment). Default: false.  
+* **classes**: The "classes" term; if true, use the *presence* of a class label as a signal. Default: false.
+* **no-norm-sup**: If true, do not normalize the supervised term. Default: false.
+* **no-norm-cls**: If true, do not normalize the classes term. Default: false.
+* **no-norm-con**: If true, do not normalize the constraint term. Default: false.
+* **no-norm-obj**: If true, do not normalize the objectness term. Default: false.
+* **start-iter**: If specified, start the number of iterations at <start-iter>. Useful for starting and stopping training, when you want the name of the model to reflect how many iterations it has actually undergone. Default: None. 
+
+So, a typical use case of this script looks like:
+``python solve.py --year=2012 --output=real1-click1-cls-con-obj --train-img=path/to/training/images/lmdb --train-gt=path/to/training/gt/images/lmdb --val-img=path/to/validation/images/lmdb --val-gt=path/to/validation/gt/images/lmdb --expectation --location --constraint --classes --objectness 
+
+where we use the default learning rate of 1e-5 and momentum of 0.9, use a minibatch size of 20, display every 20 iterations, use GPU 0, initialize from the VGG16-CONV model.
 
 ## ``eval.py``
 

@@ -95,10 +95,10 @@ def set_up_parser():
 	parser.add_option("--classes", action="store_true", dest="classes", default=False)
 	parser.add_option("--siftflow", action="store_true", dest="siftflow", default=False)
 
-	parser.add_option("--no_norm_sup", action="store_true", dest="no_norm_sup", default=False)
-	parser.add_option("--no_norm_cls", action="store_true", dest="no_norm_cls", default=False)
-	parser.add_option("--no_norm_con", action="store_true", dest="no_norm_con", default=False)
-	parser.add_option("--no_norm_obj", action="store_true", dest="no_norm_obj", default=False)
+	parser.add_option("--no-norm-sup", action="store_true", dest="no_norm_sup", default=False)
+	parser.add_option("--no-norm-cls", action="store_true", dest="no_norm_cls", default=False)
+	parser.add_option("--no-norm-con", action="store_true", dest="no_norm_con", default=False)
+	parser.add_option("--no-norm-obj", action="store_true", dest="no_norm_obj", default=False)
 
 	parser.add_option("--start-iter", dest="start_iter", default='')
 

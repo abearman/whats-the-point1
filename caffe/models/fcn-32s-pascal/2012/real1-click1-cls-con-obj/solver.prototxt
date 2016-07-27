@@ -1,0 +1,13 @@
+net: "/imagenetdb3/abearman/caffe/models/fcn-32s-pascal/2012/real1-click1-cls-con-obj/train_val.prototxt" test_iter: 5105
+# make test net, but don't invoke it from the solver itself
+test_interval: 1000000
+display: 1 lr_policy: "fixed"
+# lr for unnormalized softmax -- see train_val definition
+base_lr: 1e-5 momentum: 0.9
+# no gradient accumulation
+iter_size: 1
+max_iter: 80000
+weight_decay: 0.0005
+snapshot: 10000
+snapshot_prefix: "train"
+test_initialization: false

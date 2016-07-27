@@ -4,14 +4,29 @@
 
 This script trains a fully-connected, 32 pixel stride convolutional Caffe network for the PASCAL VOC 2012 segmentation task. It uses our [custom Caffe softmax loss layer](https://github.com/abearman/whats-the-point1/blob/454f0b04d8875349d287801d1041aa9820fe7f50/caffe/src/caffe/layers/softmax_loss_expectation_layer.cu) to do semantic segmentation using the information provided by image-level labels, point supervision, and an objectness prior. 
 
+This script creates a new output directory based on the path you give it. In this directory, the script creates a new ``train_val.prototxt``, ``solver.prototxt``, and ``deploy.prototxt`` based on the arguments your provide. It also saves all models here (one snapshot every 1,000 iterations). 
+
 By default, this script runs Caffe in GPU mode. You can change this by changing the line ``caffe.set_mode_gpu()`` to ``caffe.set_mode_cpu()``. 
 
 By default, the new model is initialized from [this model](https://github.com/abearman/whats-the-point1/tree/master/caffe/models/vgg16-conv-pascal), but you can optionally specify a different model to intialize from (e.g., if you want to suspend and resume training).
  
-The script saves a model every 1,000 iterations.
-
 ### Inputs
+You can see all inputs and their defaults in the ``set_up_parser`` function.
 
+* **output**: Where do you want the output to go? No default, must be specified.
+* **year**: The year of the PASCAL VOC challenge. Default: 2012.
+* **train-img**: The path to the lmdb containing the training jpg images.
+* **train-gt**: The path to the lmdb containing the ground truth segmentations (with the correct class labels) for the set of training images.
+* **val-img**: The path to the lmdb containing the validation jpg images.
+* **val-gt**: The path to the lmdb containing the ground truth segmentations (with the correct class labels) for the set of validation images. 
+* **test**: If true, train the model using all of the training and validation images, because it will be evaluated on the test set. Default: false.
+* **lr**: The learning rate hyperparameter. Default: 1e-5.
+* **momentum**: The momentum hyperparameter. Default: 0.9
+* **gpu**: Which GPU ID to use, if on GPU mode. Default: 0.
+* **display**: Print output every <display> iterations. Default: 20.
+* **batch-size**: Size of minibatch of images. Default: 20.
+* **init-from**: If specified, initialize the model from the .caffemodel at <init-from> path. Otherwise, the VGG16-CONV model will be used. Default: None. 
+* ** 
 
 ## ``eval.py``
 

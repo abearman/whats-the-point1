@@ -72,7 +72,7 @@ def set_up_net(options):
 def set_up_parser():
 	parser = OptionParser()
 	parser.add_option("--output", dest="output_dir", help="Where do you want the output to go?")
-	parser.add_option("--year", dest="year", default="2012")
+	parser.add_option("--year", dest="year", default="2012", help="The year of the PASCAL VOC challenge.")
 	
 	parser.add_option("--train-img", dest="train_img", default="/imagenetdb3/olga/data/segm_lmdb/lmdb-pascal_2012t_SBDtv_minus_2012v/lmdb-img")
 	parser.add_option("--train-gt", dest="train_gt", default="/imagenetdb3/olga/data/segm_lmdb/lmdb-pascal_2012t_SBDtv_minus_2012v/lmdb-fs-gt1")
@@ -80,9 +80,9 @@ def set_up_parser():
 	parser.add_option("--val-gt", dest="val_gt", default="lmdb-pascal_2012v-gt")
 	parser.add_option("--test", action="store_true", dest="test", default=False) 
 	
-	parser.add_option("--lr", dest="lr", default="1e-10")
-	parser.add_option("--momentum", dest="momentum", default=0.99)
-	parser.add_option("--gpu", dest="gpu", default=3)
+	parser.add_option("--lr", dest="lr", default="1e-5")
+	parser.add_option("--momentum", dest="momentum", default=0.9)
+	parser.add_option("--gpu", dest="gpu", default=0)
 	parser.add_option("--display", dest="display", default=20);
 	parser.add_option("--batch-size", dest="batch_size", default=20)
 	parser.add_option("--init-from", dest="init_from", default='')
@@ -100,7 +100,6 @@ def set_up_parser():
 	parser.add_option("--no_norm_con", action="store_true", dest="no_norm_con", default=False)
 	parser.add_option("--no_norm_obj", action="store_true", dest="no_norm_obj", default=False)
 
-	parser.add_option("--eight_stride", action="store_true", dest="eight_stride", default=False)
 	parser.add_option("--start-iter", dest="start_iter", default='')
 
 	(options, args) = parser.parse_args()

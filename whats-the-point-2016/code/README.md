@@ -39,9 +39,9 @@ You can see all inputs and their defaults in the ``set_up_parser`` function.
 
 So, a typical use case of this script looks like:
 
-``bash
+```bash
 python solve.py --year=2012 --output=real1-click1-cls-con-obj --train-img=path/to/training/images/lmdb --train-gt=path/to/training/gt/images/lmdb --val-img=path/to/validation/images/lmdb --val-gt=path/to/validation/gt/images/lmdb --expectation --location --constraint --classes --objectness 
-``
+```
 
 where we use the default learning rate of 1e-5 and momentum of 0.9, use a minibatch size of 20, display every 20 iterations, use GPU 0, initialize from the VGG16-CONV model.
 
